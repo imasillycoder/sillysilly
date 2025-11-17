@@ -123,7 +123,14 @@ export default function Layout({ children, currentPageName }) {
                 </div>
               </div>
               <button
-                onClick={() => base44.auth.logout()}
+                onClick={() => {
+                  try { localStorage.removeItem('isAdmin'); } catch (e) {}
+                  if (base44?.auth?.logout) {
+                    base44.auth.logout();
+                  }
+                  // redirect to login page
+                  try { window.location.href = '/login'; } catch (e) {}
+                }}
                 className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200"
                 title="Logout"
               >
