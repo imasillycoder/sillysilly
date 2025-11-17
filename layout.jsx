@@ -21,20 +21,25 @@ import {
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    // Check server-side cookie to determine admin status
+    const checkAuth = async () => {
       try {
-        const currentUser = await base44.auth.me();
-        setUser(currentUser);
-      } catch (error) {
-        console.error("Error fetching user:", error);
+        const res = await fetch('/api/auth');
+        const json = await res.json();
+        if (json.authenticated) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (e) {
+        setIsAdmin(false);
       }
     };
-    fetchUser();
+    checkAuth();
   }, []);
-
-  const isAdmin = user?.role === 'admin';
 
   const navigationItems = isAdmin ? [
     {
@@ -123,12 +128,12 @@ export default function Layout({ children, currentPageName }) {
                 </div>
               </div>
               <button
-                onClick={() => {
-                  try { localStorage.removeItem('isAdmin'); } catch (e) {}
-                  if (base44?.auth?.logout) {
-                    base44.auth.logout();
+                onClick={async () => {
+                  try {
+                    await fetch('/api/logout', { method: 'POST' });
+                  } catch (e) {
+                    // ignore
                   }
-                  // redirect to login page
                   try { window.location.href = '/login'; } catch (e) {}
                 }}
                 className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200"

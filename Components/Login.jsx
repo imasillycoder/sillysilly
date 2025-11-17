@@ -20,8 +20,7 @@ export default function Login() {
       });
       const json = await res.json();
       if (res.ok && json.success) {
-        // Mark admin locally
-        localStorage.setItem('isAdmin', 'true');
+        // Server set HttpOnly cookie; just redirect to home
         navigate('/');
       } else {
         setError(json.message || 'Invalid credentials');

@@ -9,7 +9,11 @@ export default async function handler(req, res) {
     const adminPassword = process.env.ADMIN_PASSWORD;
 
     if (username === 'admin' && adminPassword && password === adminPassword) {
-      // In a real app you'd return a signed token. Here we return success only.
+      // Set an HttpOnly cookie so client cannot tamper with it.
+      // Cookie is simple flag 'isAdmin=1' — not cryptographically signed.
+      const maxAge = 60 * 60 * 24 * 7; // 7 days
+      const cookie = `isAdmin=1; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Strict; Secure`;
+      res.setHeader('Set-Cookie', cookie);
       return res.status(200).json({ success: true });
     }
 
