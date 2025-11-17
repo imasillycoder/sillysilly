@@ -16,7 +16,7 @@ import {
   SidebarFooter,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from "@/Components/ui/sidebar";
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
