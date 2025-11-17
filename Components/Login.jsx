@@ -21,8 +21,8 @@ export default function Login() {
       });
       const json = await res.json();
       if (res.ok && json.success) {
-        // Server set HttpOnly cookie; just redirect to home
-        navigate('/');
+        // Server set HttpOnly cookie; redirect to admin dashboard
+        navigate('/AdminDashboard');
       } else {
         setError(json.message || 'Invalid credentials');
       }
