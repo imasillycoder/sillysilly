@@ -6,9 +6,8 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route element={<Layout />}>
-          {/* Add your routes here */}
-        </Route>
+        {/* Ensure Layout renders for any path - avoids blank app if no child routes match */}
+        <Route path="/*" element={<Layout />} />
       </Routes>
     </Router>
   );
