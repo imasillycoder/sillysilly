@@ -11,8 +11,11 @@ export default async function handler(req, res) {
     if (username === 'admin' && adminPassword && password === adminPassword) {
       // Set an HttpOnly cookie so client cannot tamper with it.
       // Cookie is simple flag 'isAdmin=1' — not cryptographically signed.
+      // Only add the Secure attribute when running in production (HTTPS).
       const maxAge = 60 * 60 * 24 * 7; // 7 days
-      const cookie = `isAdmin=1; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Strict; Secure`;
+      const isProd = process.env.NODE_ENV === 'production';
+      const secureAttr = isProd ? '; Secure' : '';
+      const cookie = `isAdmin=1; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Strict${secureAttr}`;
       res.setHeader('Set-Cookie', cookie);
       return res.status(200).json({ success: true });
     }

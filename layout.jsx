@@ -27,7 +27,7 @@ export default function Layout({ children, currentPageName }) {
     // Check server-side cookie to determine admin status
     const checkAuth = async () => {
       try {
-        const res = await fetch('/api/auth');
+        const res = await fetch('/api/auth', { credentials: 'include' });
         const json = await res.json();
         if (json.authenticated) {
           setIsAdmin(true);
@@ -130,7 +130,7 @@ export default function Layout({ children, currentPageName }) {
               <button
                 onClick={async () => {
                   try {
-                    await fetch('/api/logout', { method: 'POST' });
+                    await fetch('/api/logout', { method: 'POST', credentials: 'include' });
                   } catch (e) {
                     // ignore
                   }
