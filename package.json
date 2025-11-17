@@ -1,6 +1,7 @@
 {
   "name": "sillysilly",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -8,8 +9,12 @@
     "start": "vite preview"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^5.1.1",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.553.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^7.9.6"
   },
   "devDependencies": {
     "vite": "^5.0.0"
