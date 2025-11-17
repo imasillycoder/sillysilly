@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node --input-type=module -e \"import('vite').then(m=>m.build())\"",
     "start": "vite preview"
   },
   "dependencies": {
