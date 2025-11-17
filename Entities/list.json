@@ -1,0 +1,27 @@
+{
+  "name": "List",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the list"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the list"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "completed",
+        "archived"
+      ],
+      "default": "active",
+      "description": "Status of the list"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

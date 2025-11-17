@@ -1,0 +1,33 @@
+{
+  "name": "Service",
+  "type": "object",
+  "properties": {
+    "list_id": {
+      "type": "string",
+      "description": "ID of the list this service belongs to"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the service"
+    },
+    "cost": {
+      "type": "number",
+      "description": "Cost of the service in dollars"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending",
+      "description": "Status of the service"
+    }
+  },
+  "required": [
+    "list_id",
+    "description",
+    "cost"
+  ]
+}
